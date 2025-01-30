@@ -13,7 +13,7 @@ Remake of the mobile game "Block Blast" using Pygame.
   python main.py
   ```
 ## Additional information
-- [high_score.py](https://github.com/Kefrov/Blast/tree/main/high_score.py) and [hash_decrypt.exe](https://github.com/Kefrov/Blast/tree/main/hash_decrypt.exe) work together to ensure that the high score remains secure
+- [highscore.py](https://github.com/Kefrov/Blast/tree/main/highscore.py) and [hash_decrypt.exe](https://github.com/Kefrov/Blast/tree/main/hash_decrypt.exe) work together to ensure that the high score remains secure
 - Each time the high score is saved, it is encrypted before storage. (Might not be the most secure method, but it works for this project)
 ***
 I made this in only 5 days but it's my best project to date. <br>
