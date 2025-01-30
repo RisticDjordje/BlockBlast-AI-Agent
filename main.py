@@ -328,7 +328,7 @@ def main():
             score += bonus
     
     def draw_game_over():
-        nonlocal game_over_alpha
+        nonlocal game_over_alpha, highest_score
         
         curr_main_width, curr_main_height = main_screen.get_size()
         
@@ -345,6 +345,8 @@ def main():
         if score > highest_score:
             game_over_text = 'NEW RECORD'
             highscore.save_score(score)
+            highest_score = highscore.get_score()
+            
         
         font_text = pygame.font.Font('Assets\LECO.ttf', curr_main_width // 13)
         text = font_text.render(game_over_text, True, (140, 140, 140))
