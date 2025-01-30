@@ -343,7 +343,6 @@ def main():
         
         game_over_text = 'YOUR SCORE'
         if score > highest_score:
-            game_over_text = 'NEW RECORD'
             highscore.save_score(score)
             highest_score = highscore.get_score()
             
