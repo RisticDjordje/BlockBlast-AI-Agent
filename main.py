@@ -6,7 +6,7 @@ import shapes
 import highscore
 
 pygame.init()
-pygame.mixer.init() # test
+pygame.mixer.init()
 
 INIT_WIDTH = 1600
 INIT_HEIGHT = 900
@@ -47,6 +47,7 @@ def main():
     
     game_over = False
     game_over_alpha = 0
+    game_over_text = 'YOUR SCORE'
     
     def fade_in():
         nonlocal fade_alpha, transition_in
@@ -328,7 +329,7 @@ def main():
             score += bonus
     
     def draw_game_over():
-        nonlocal game_over_alpha, highest_score
+        nonlocal game_over_alpha, highest_score, game_over_text
         
         curr_main_width, curr_main_height = main_screen.get_size()
         
@@ -341,11 +342,10 @@ def main():
         text_screen = pygame.Surface((curr_main_width, curr_main_height), pygame.SRCALPHA)
         text_screen.set_alpha(game_over_alpha + 20)
         
-        game_over_text = 'YOUR SCORE'
         if score > highest_score:
+            game_over_text = 'NEW RECORD'
             highscore.save_score(score)
             highest_score = highscore.get_score()
-            
         
         font_text = pygame.font.Font('Assets\LECO.ttf', curr_main_width // 13)
         text = font_text.render(game_over_text, True, (140, 140, 140))
