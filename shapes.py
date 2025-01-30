@@ -138,3 +138,22 @@ class Shape:
             self.form = random.choice(random.choice(forms))
         self.color = random.choice(colors)
         
+def generate_shapes():
+        next_shapes = []
+        while len(next_shapes) != 3:
+            r_int = random.randint(0, 1199)
+            for i in range(12):
+                if probs[i] <= r_int < probs[i + 1]:
+                    current = Shape([i, random.randint(0, len(forms[i]) - 1)])
+                    break
+            
+            valid = True
+            for i in next_shapes:
+                if i.form == current.form:
+                    valid = False
+                    break
+                
+            if valid:
+                next_shapes.append(current)
+            
+        return next_shapes
