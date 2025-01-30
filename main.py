@@ -28,7 +28,7 @@ def main():
     grid = [[0, 0, 0, 0, 0, 0, 0, 0] for i in range(8)]
 
     chosen_shape = -1
-    current_shapes = [shapes.Shape(-1), shapes.Shape(-1), shapes.Shape(-1)]
+    current_shapes = shapes.generate_shapes()
     slide_animation = False
     shape_animation_dist = 0
     shape_animation_velocity = 0
@@ -47,26 +47,6 @@ def main():
     
     game_over = False
     game_over_alpha = 0
-    
-    def generate_shapes():
-        next_shapes = []
-        while len(next_shapes) != 3:
-            r_int = random.randint(0, 1199)
-            for i in range(12):
-                if shapes.probs[i] <= r_int < shapes.probs[i + 1]:
-                    current = shapes.Shape([i, random.randint(0, len(shapes.forms[i]) - 1)])
-                    break
-            
-            valid = True
-            for i in next_shapes:
-                if i.form == current.form:
-                    valid = False
-                    break
-                
-            if valid:
-                next_shapes.append(current)
-            
-        return next_shapes
     
     def fade_in():
         nonlocal fade_alpha, transition_in
@@ -228,7 +208,7 @@ def main():
                         combos[1] = 0
                         combos[0][-1] = "COMBO 0"
                     combo_streak = False
-                    current_shapes = generate_shapes()
+                    current_shapes = shapes.generate_shapes()
                     slide_animation = True
 
                 check_game_over()
