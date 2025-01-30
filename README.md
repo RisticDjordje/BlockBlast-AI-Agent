@@ -12,6 +12,9 @@ Remake of the mobile game "Block Blast" using Pygame.
   ```bash
   python main.py
   ```
+## Download
+You can download the latest release of **Blast** here:  
+[Download Blast v1.0](https://github.com/yourusername/Blast/releases/latest)
 ## Additional information
 - [highscore.py](https://github.com/Kefrov/Blast/tree/main/highscore.py) and [hash_decrypt.exe](https://github.com/Kefrov/Blast/tree/main/hash_decrypt.exe) work together to ensure that the high score remains secure
 - Each time the high score is saved, it is encrypted before storage. (Might not be the most secure method, but it works for this project)
