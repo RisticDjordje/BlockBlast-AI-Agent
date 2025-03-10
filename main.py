@@ -15,12 +15,12 @@ FPS = 60
 TRANSITION_SPEED = 255 // 17
 
 main_screen = pygame.display.set_mode((INIT_WIDTH, INIT_HEIGHT), pygame.RESIZABLE)
-screen = pygame.display.set_icon(pygame.image.load('Assets\icon.png'))
+screen = pygame.display.set_icon(pygame.image.load(r'Assets/icon.png'))
 pygame.display.set_caption("Blast")
 
 clock = pygame.time.Clock()
 
-clear_sound = pygame.mixer.Sound('Assets\clear_sf.wav')
+clear_sound = pygame.mixer.Sound(r'Assets/clear_sf.wav')
 
 def main():
     grid_line_width = 2
@@ -347,13 +347,13 @@ def main():
             highscore.save_score(score)
             highest_score = highscore.get_score()
         
-        font_text = pygame.font.Font('Assets\LECO.ttf', curr_main_width // 13)
+        font_text = pygame.font.Font(r'Assets/LECO.ttf', curr_main_width // 13)
         text = font_text.render(game_over_text, True, (140, 140, 140))
         text_rect = text.get_rect()
         text_rect.center = (curr_main_width // 2, (curr_main_height // 20) * 7.5)
         text_screen.blit(text, text_rect)
         
-        font_score = pygame.font.Font('Assets\LECO.ttf', curr_main_width // 15)
+        font_score = pygame.font.Font(r'Assets/LECO.ttf', curr_main_width // 15)
         score_text = font_score.render(str(score), True, (140, 140, 140))
         score_rect = score_text.get_rect()
         score_rect.center = (curr_main_width // 2, (curr_main_height // 20) * 12.5)
@@ -368,13 +368,13 @@ def main():
         curr_main_width, curr_main_height = main_screen.get_size()
         grid_padding = curr_main_height // 10
         
-        font_highest = pygame.font.Font('Assets\LECO.ttf', int(grid_padding / 2))
+        font_highest = pygame.font.Font(r'Assets/LECO.ttf', int(grid_padding / 2))
         text_highest = font_highest.render("HIGH SCORE", True, (135, 135, 135))
         text_highest_value = font_highest.render(str(highest_score), True, (135, 135, 135))
         main_screen.blit(text_highest, (grid_padding // 3, grid_padding // 6))
         main_screen.blit(text_highest_value, (grid_padding // 3, grid_padding // 1.3))
         
-        font_score = pygame.font.Font('Assets\LECO.ttf', int(grid_padding / 1.3))
+        font_score = pygame.font.Font(r'Assets/LECO.ttf', int(grid_padding / 1.3))
         score_text = font_score.render(str(displayed_score), True, (135, 135, 135))
         score_rect = score_text.get_rect()
         score_rect.center = (curr_main_width // 2, grid_padding // 2)
@@ -404,7 +404,7 @@ def main():
         j = 1
         for i in range(len(combos[0]) - 1, -1, -1):
             font_size = int(grid_padding / 3)
-            font_combo = pygame.font.Font('Assets\LECO.ttf', font_size)
+            font_combo = pygame.font.Font(r'Assets/LECO.ttf', font_size)
             text_combo = font_combo.render(combos[0][i], True, (135, 135, 135))
             combos_screen.blit(text_combo, (0, combo_screen_y - font_size * j))
             
@@ -437,7 +437,7 @@ def main():
         clock.tick(FPS)
              
 def controls():
-    controlsImg = pygame.image.load("Assets\controls.png")
+    controlsImg = pygame.image.load("Assets/controls.png")
     
     transition_out = False
     fade_alpha = 0
