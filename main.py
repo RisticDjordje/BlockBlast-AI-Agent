@@ -1,8 +1,6 @@
 import pygame
 import sys
-import random
-
-import shapes
+from modified_shape_generator import generate_shapes as generate_valid_shapes
 import highscore
 
 pygame.init()
@@ -29,7 +27,10 @@ def main():
     grid = [[0, 0, 0, 0, 0, 0, 0, 0] for i in range(8)]
 
     chosen_shape = -1
-    current_shapes = shapes.generate_shapes()
+    current_shapes = generate_valid_shapes(grid)
+    # Make sure current_shapes is a list, not None
+    if current_shapes is None:
+        current_shapes = [0, 0, 0]
     slide_animation = False
     shape_animation_dist = 0
     shape_animation_velocity = 0
@@ -174,8 +175,12 @@ def main():
         nonlocal game_over
 
         game_over = True
+        # Make sure current_shapes is a list before looping
+        if not isinstance(current_shapes, list):
+            return None
+
         for shape in current_shapes:
-            if shape:
+            if shape and hasattr(shape, "form"):  # Check if shape is valid
                 size = [len(shape.form), len(shape.form[0])]
 
                 for i in range(8):
@@ -198,7 +203,15 @@ def main():
     def place_shape():
         nonlocal chosen_shape, current_shapes, slide_animation, combo_streak
 
-        if chosen_shape != -1 and current_shapes[chosen_shape]:
+        # Check if chosen_shape is valid and current_shapes is a list with valid elements
+        if (
+            chosen_shape != -1
+            and isinstance(current_shapes, list)
+            and 0 <= chosen_shape < len(current_shapes)
+            and current_shapes[chosen_shape]
+            and hasattr(current_shapes[chosen_shape], "form")
+        ):
+
             curr_main_width, curr_main_height = main_screen.get_size()
             grid_padding = curr_main_height // 10
             grid_side = curr_main_height - 2 * grid_padding
@@ -240,6 +253,8 @@ def main():
                         if (
                             pos_square[0] < 0
                             or pos_square[1] < 0
+                            or pos_square[0] >= 8  # Add bounds check
+                            or pos_square[1] >= 8  # Add bounds check
                             or grid[pos_square[0]][pos_square[1]]
                         ):
                             valid_placement = False
@@ -255,12 +270,17 @@ def main():
 
                 update_grid()
 
-                if set(current_shapes) == {0}:
+                if all(shape == 0 for shape in current_shapes):
                     if not combo_streak:
                         combos[1] = 0
                         combos[0][-1] = "COMBO 0"
                     combo_streak = False
-                    current_shapes = shapes.generate_shapes()
+                    new_shapes = generate_valid_shapes(grid)
+                    # Ensure new_shapes is a valid list
+                    if new_shapes is None or not isinstance(new_shapes, list):
+                        current_shapes = [0, 0, 0]
+                    else:
+                        current_shapes = new_shapes
                     slide_animation = True
 
                 check_game_over()
@@ -291,33 +311,53 @@ def main():
         shapes_margin = curr_main_height // 4
         center_y = [shapes_margin, shapes_margin * 2, shapes_margin * 3]
 
-        for cshape in range(3):
-            shape = current_shapes[cshape]
-            if chosen_shape != cshape and shape:
-                size = [len(shape.form), len(shape.form[0])]
+        # Make sure current_shapes is a list before looping
+        if not isinstance(current_shapes, list):
+            return
 
-                for i in range(size[0]):
-                    for j in range(size[1]):
-                        if shape.form[i][j]:
-                            pos_x = (
-                                center_x
-                                - (square_side * size[1] // 2)
-                                + j * (square_side + 2)
-                            )
-                            pos_y = (
-                                center_y[cshape]
-                                - (square_side * size[0] // 2)
-                                + i * (square_side + 2)
-                            )
-                            square = pygame.Rect(pos_x, pos_y, square_side, square_side)
-                            bg_square = pygame.Rect(
-                                pos_x - 2, pos_y - 2, square_side + 4, square_side + 4
-                            )
-                            pygame.draw.rect(main_screen, (0, 0, 0), bg_square)
-                            pygame.draw.rect(main_screen, shape.color, square)
+        for cshape in range(3):
+            # Check if cshape is a valid index
+            if cshape < len(current_shapes):
+                shape = current_shapes[cshape]
+                if (
+                    chosen_shape != cshape and shape and hasattr(shape, "form")
+                ):  # Check if shape is valid
+                    size = [len(shape.form), len(shape.form[0])]
+
+                    for i in range(size[0]):
+                        for j in range(size[1]):
+                            if shape.form[i][j]:
+                                pos_x = (
+                                    center_x
+                                    - (square_side * size[1] // 2)
+                                    + j * (square_side + 2)
+                                )
+                                pos_y = (
+                                    center_y[cshape]
+                                    - (square_side * size[0] // 2)
+                                    + i * (square_side + 2)
+                                )
+                                square = pygame.Rect(
+                                    pos_x, pos_y, square_side, square_side
+                                )
+                                bg_square = pygame.Rect(
+                                    pos_x - 2,
+                                    pos_y - 2,
+                                    square_side + 4,
+                                    square_side + 4,
+                                )
+                                pygame.draw.rect(main_screen, (0, 0, 0), bg_square)
+                                pygame.draw.rect(main_screen, shape.color, square)
 
     def draw_cursor():
-        if chosen_shape != -1 and current_shapes[chosen_shape]:
+        if (
+            chosen_shape != -1
+            and isinstance(current_shapes, list)
+            and 0 <= chosen_shape < len(current_shapes)
+            and current_shapes[chosen_shape]
+            and hasattr(current_shapes[chosen_shape], "form")
+        ):
+
             curr_main_width, curr_main_height = main_screen.get_size()
             grid_padding = curr_main_height // 10
             grid_side = curr_main_height - 2 * grid_padding
@@ -386,7 +426,7 @@ def main():
             if lines_cleared > 2:
                 bonus *= lines_cleared - 1
 
-            combo = combo_names[lines_cleared] + f"CLEAR +{bonus}"
+            combo = combo_names.get(lines_cleared, "MULTI ") + f"CLEAR +{bonus}"
             combos[0].insert(-1, combo)
             if all_clear:
                 bonus += 300
