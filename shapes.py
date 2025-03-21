@@ -12,51 +12,190 @@ colors = [
 
 # Define shape forms
 forms = [
-    [[[1, 1], [1, 1]]],  # shape 1 - 2x2 square
-    [[[1, 1, 1], [1, 1, 1]], [[1, 1], [1, 1], [1, 1]]],  # shape 2
-    [[[1, 1, 1], [1, 1, 1], [1, 1, 1]]],  # shape 3
-    [
-        [[1, 1, 1], [1, 0, 0], [1, 0, 0]],  # shape 4
-        [[1, 1, 1], [0, 0, 1], [0, 0, 1]],
-        [[1, 0, 0], [1, 0, 0], [1, 1, 1]],
-        [[0, 0, 1], [0, 0, 1], [1, 1, 1]],
+    [  # shape 1 - 2x2 square
+        [
+            [1, 1],
+            [1, 1]
+        ]
     ],
-    [
-        [[1, 1, 1], [1, 0, 0]],  # shape 5
-        [[1, 1, 1], [0, 0, 1]],
-        [[0, 0, 1], [1, 1, 1]],
-        [[1, 0, 0], [1, 1, 1]],
-        [[1, 0], [1, 0], [1, 1]],
-        [[0, 1], [0, 1], [1, 1]],
-        [[1, 1], [0, 1], [0, 1]],
-        [[1, 1], [1, 0], [1, 0]],
+    [  # shape 2 - 3x2 rectangle
+        [
+            [1, 1, 1],
+            [1, 1, 1]
+        ],
+        [
+            [1, 1],
+            [1, 1],
+            [1, 1]
+        ]
     ],
-    [
-        [[0, 1, 1], [1, 1, 0]],  # shape 6
-        [[1, 1, 0], [0, 1, 1]],
-        [[1, 0], [1, 1], [0, 1]],
-        [[0, 1], [1, 1], [1, 0]],
+    [  # shape 3 - 3x3 square
+        [
+            [1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1]
+        ]
     ],
-    [
-        [[0, 1, 0], [1, 1, 1]],  # shape 7
-        [[1, 1, 1], [0, 1, 0]],
-        [[1, 0], [1, 1], [1, 0]],
-        [[0, 1], [1, 1], [0, 1]],
+    [  # shape 4 - L shape (3 length)
+        [
+            [1, 1, 1],
+            [1, 0, 0],
+            [1, 0, 0]
+        ],
+        [
+            [1, 1, 1],
+            [0, 0, 1],
+            [0, 0, 1]
+        ],
+        [
+            [1, 0, 0],
+            [1, 0, 0],
+            [1, 1, 1]
+        ],
+        [
+            [0, 0, 1],
+            [0, 0, 1],
+            [1, 1, 1]
+        ],
     ],
-    [[[1, 1]], [[1], [1]]],  # shape 8 - 2x1 rectangle
-    [[[1, 1, 1]], [[1], [1], [1]]],  # shape 9 - 3x1 rectangle
-    [
-        [[1, 0], [1, 1]],  # shape 10
-        [[1, 1], [0, 1]],
-        [[1, 1], [1, 0]],
-        [[0, 1], [1, 1]],
+    [  # shape 5 - L (2 with 3 length)
+        [
+            [1, 1, 1],
+            [1, 0, 0]
+        ],
+        [
+            [1, 1, 1],
+            [0, 0, 1]
+        ],
+        [
+            [0, 0, 1],
+            [1, 1, 1]
+        ],
+        [
+            [1, 0, 0],
+            [1, 1, 1]
+        ],
+        [
+            [1, 0],
+            [1, 0],
+            [1, 1]
+        ],
+        [
+            [0, 1],
+            [0, 1],
+            [1, 1]
+        ],
+        [
+            [1, 1],
+            [0, 1],
+            [0, 1]
+        ],
+        [
+            [1, 1],
+            [1, 0],
+            [1, 0]
+        ],
     ],
-    [[[1, 1, 1, 1]], [[1], [1], [1], [1]]],  # shape 11 - 4x1 rectangle
-    [[[1, 1, 1, 1, 1]], [[1], [1], [1], [1], [1]]],  # shape 12 - 5x1 rectangle
+    [  # shape 6 - Z shape
+        [
+            [0, 1, 1],
+            [1, 1, 0]
+        ],
+        [
+            [1, 1, 0],
+            [0, 1, 1]
+        ],
+        [
+            [1, 0],
+            [1, 1],
+            [0, 1]
+        ],
+        [
+            [0, 1],
+            [1, 1],
+            [1, 0]],
+    ],
+    [  # shape 7 - T shape
+        [
+            [0, 1, 0],
+            [1, 1, 1]
+        ],
+        [
+            [1, 0],
+            [1, 1],
+            [1, 0]
+        ],
+        [
+            [1, 1, 1],
+            [0, 1, 0]
+        ],
+        [
+            [0, 1],
+            [1, 1],
+            [0, 1]
+        ],
+    ],
+    [  # shape 8 - 2x1 rectangle
+        [
+            [1, 1]
+        ],
+        [
+            [1],
+            [1]
+        ]
+    ],
+    [  # shape 9 - 3x1 rectangle
+        [
+            [1, 1, 1]
+        ],
+        [
+            [1],
+            [1],
+            [1]
+        ]
+    ],
+    [  # shape 10 - S shape
+        [
+            [1, 0],
+            [1, 1]
+        ],
+        [
+            [1, 1],
+            [0, 1]
+        ],
+        [
+            [1, 1],
+            [1, 0]
+        ],
+        [
+            [0, 1],
+            [1, 1]
+        ],
+    ],
+    [  # shape 11 - 4x1 rectangle
+        [
+            [1, 1, 1, 1]
+        ],
+        [
+            [1],
+            [1],
+            [1],
+            [1]
+        ]
+    ],
+    [  # shape 12 - 5x1 rectangle
+        [
+            [1, 1, 1, 1, 1]
+        ],
+        [
+            [1],
+            [1],
+            [1],
+            [1],
+            [1]
+        ]
+    ],
 ]
-
-# Probability array for choosing shapes
-probs = [0, 127, 202, 242, 307, 434, 561, 688, 815, 942, 1069, 1144, 1200]
 
 
 class Shape:
@@ -76,37 +215,32 @@ class Shape:
 
 
 def generate_shapes():
-    """Generate three random shapes"""
+    """Generate three random shapes with uniform probability"""
     next_shapes = []
 
     # Try to generate 3 unique shapes
     while len(next_shapes) < 3:
         try:
-            r_int = random.randint(0, 1199)
-            form_index = None
+            # Simply choose a random shape index (uniform probability)
+            form_index = random.randint(0, len(forms) - 1)
 
-            # Find which form index this random number corresponds to
-            for i in range(12):
-                if probs[i] <= r_int < probs[i + 1]:
-                    form_index = i
+            # Choose a random variant of that shape
+            variant_index = random.randint(0, len(forms[form_index]) - 1)
+
+            current = Shape([form_index, variant_index])
+
+            # Check if this shape is already in our list (avoid duplicates)
+            valid = True
+            for existing_shape in next_shapes:
+                if (
+                    hasattr(existing_shape, "form")
+                    and existing_shape.form == current.form
+                ):
+                    valid = False
                     break
 
-            if form_index is not None:
-                variant_index = random.randint(0, len(forms[form_index]) - 1)
-                current = Shape([form_index, variant_index])
-
-                # Check if this shape is already in our list (avoid duplicates)
-                valid = True
-                for existing_shape in next_shapes:
-                    if (
-                        hasattr(existing_shape, "form")
-                        and existing_shape.form == current.form
-                    ):
-                        valid = False
-                        break
-
-                if valid:
-                    next_shapes.append(current)
+            if valid:
+                next_shapes.append(current)
         except Exception:
             # If we encounter any error, add a simple 1x1 shape as fallback
             fallback = Shape(-1)

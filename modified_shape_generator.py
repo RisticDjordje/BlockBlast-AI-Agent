@@ -158,18 +158,20 @@ def generate_shapes(grid):
 
             attempts += 1
 
+        print("TRYING SIMPLE SHAPES")
+
         # If we couldn't find a placeable shape after many attempts, use a simple shape
         if placeable_shape is None:
-            simple_shapes = [
+            simple_shapes_indexes = [
                 [0, 0],  # 2x2 square
                 [7, 0],  # 2x1 rectangle
                 [8, 0],  # 3x1 rectangle
             ]
 
-            for shape_indices in simple_shapes:
+            for shape_indices in simple_shapes_indexes:
                 try:
                     simple_shape = Shape([shape_indices[0], shape_indices[1]])
-                    can_place, position = can_place_shape(current_grid, simple_shape)
+                    can_place, position = can_place_shape(current_grid, simple_shapes_indexes)
 
                     if can_place:
                         placeable_shape = simple_shape
